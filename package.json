@@ -1,22 +1,21 @@
 {
-  "name": "billingdemo",
+  "name": "queueman1",
   "version": "1.0.0",
   "description": "Demo Node JS for connecting to db",
   "main": "index.js",
   "scripts": {
-    "start": "index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/keshavcharan/QueueMan.git"
+    "url": "git+https://github.com/keshavcharan/QueueMan1.git"
   },
   "author": "Keshav",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/keshavcharan/QueueMan/issues"
+    "url": "https://github.com/keshavcharan/QueueMan1/issues"
   },
-  "homepage": "https://github.com/keshavcharan/QueueMan#readme",
+  "homepage": "https://github.com/keshavcharan/QueueMan1#readme",
   "dependencies": {
     "aws-sdk": "^2.396.0",
     "ejs": "^2.6.1",

@@ -1,9 +1,8 @@
 const express = require('express');
 const path = require('path')
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3001;
 const bodyParser = require('body-parser');
 const AWS = require("aws-sdk");
-
 
 AWS.config.update({
   region: "us-east-1",
