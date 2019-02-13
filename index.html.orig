@@ -12,8 +12,13 @@
 
     <div class="container-narrow">
         <div class="jumbotron">
-           <h2 id="step1">Profield Sample Data Update Task</h2>
-            <p id="step4" class="lead">This page is a demo page of a Hubbell Data update task that polls to the respective message queue at the click of button.
+<<<<<<< HEAD
+            <h3 id="step1">Profield Sample Data Update Task</h3>
+            <p id="step4" class="lead">This page is a demonstation12 of a Hubbell Data update task that polls to the respective message queue at the click of button.
+=======
+            <h2 id="step1">Profield Sample Data Update Task</h2>
+            <p id="step4" class="lead">This page is a demonstration21 of a Hubbell Data update task that polls to the respective message queue at the click of button.
+>>>>>>> b61650b580f13c8afe195d300fd9fad88311873b
             <br><br>A background task in this Web server picks the message value and updates into database for Google assistant.
             <br><br>In this example we will update the completed work order count for today. </p>
         </div>
