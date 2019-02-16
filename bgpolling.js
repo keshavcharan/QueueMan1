@@ -1,15 +1,7 @@
 const dyndb = require("./aws/dyndb.js");
 
-exports.doCallback = function(callback) {
-    callback
-}
-
-exports.getMsgFromQ = function (sqs, params, queueURL) {
-	callMsgFromQ(sqs, params, queueURL)
-}
-
-function callMsgFromQ(sqs, params, queueURL) {
-  console.log("Polling for message ", Date.now())
+function getMsgFromQ(sqs, params, queueURL) {
+  console.log("Polling for message")
   sqs.receiveMessage(params, function(err, data) {
     if (err) {
       console.log("Receive Error", err);
@@ -19,7 +11,7 @@ function callMsgFromQ(sqs, params, queueURL) {
         QueueUrl: queueURL,
         ReceiptHandle: data.Messages[0].ReceiptHandle
       };
-      dyndb.updateToDynamoDb(data.Messages[0].Body)
+      updateToDynamoDb(data.Messages[0].Body)
       sqs.deleteMessage(deleteParams, function(err, data) {
         if (err) {
           console.log("Delete Error", err);
@@ -31,5 +23,12 @@ function callMsgFromQ(sqs, params, queueURL) {
       console.log("No Messages Found")
     }
   }); 
-  setTimeout(callMsgFromQ(sqs, params, queueURL), 1000);
+  setTimeout(getMsgFromQ, 1000, sqs, params, queueURL);
 }
+
+function doCallback(callback) {
+    callback
+}
+
+exports.doCallback = doCallback
+exports.getMsgFromQ = getMsgFromQ

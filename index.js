@@ -3,15 +3,14 @@ const path = require('path')
 const PORT = process.env.PORT || 3001;
 const bodyParser = require('body-parser');
 const AWS = require("aws-sdk");
-const AWS1 = require("aws-sdk");
 const bgpoll = require("./bgpolling.js")
+const sqsmsging = require("./aws/sqsmessaging.js")
 
 AWS.config.update({
   region: "us-east-1",
   endpoint: "https://dynamodb.us-east-1.amazonaws.com"
 });
 const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
-const sqs1 = new AWS1.SQS({apiVersion: '2012-11-05'});
 
 const AWARDS = "Awards"
 const GRID_MON = "GridMonitoring"
@@ -39,35 +38,19 @@ expressApp.use(bodyParser.urlencoded({
 }));
 
 expressApp.get('/',async function (req, res) {
-	//res.send("Hello World");
-	res.sendFile("index.html", {root:__dirname})
-  var getmsg = bgpoll.getMsgFromQ(sqs1, params, queueURL)
-  bgpoll.doCallback(getmsg)
+	res.sendFile("index.html", {root:__dirname}) 
+  bgpoll.doCallback(bgpoll.getMsgFromQ(sqs, params, queueURL))
 });
 
 expressApp.post('/', function (req, res) {
-  console.log("Test");
-  console.log(req.body);
+  console.log(req.body)
   var count = req.body.Count
-  var params = {
-   DelaySeconds: 10,
-   MessageBody: `Profield WorkOrderCount 2019-02-13 ${count}`,
-   QueueUrl: queueURL
-  };
-
-  sqs.sendMessage(params, function(err, data, count) {
-    if (err) {
-      console.log("Error", err);
-    } else {
-      console.log("Success", data.MessageId);
-    }
-  });
+  sqsmsging.sendSQSMessage(sqs, params, queueURL, count)
   res.sendFile("index.html", {root:__dirname})
-
 });
 
-AWS1.config.update({
+/*AWS1.config.update({
   region: "us-east-1",
 });
-
+*/
 //'Profield WorkOrderCount 2019-02-06 10'
